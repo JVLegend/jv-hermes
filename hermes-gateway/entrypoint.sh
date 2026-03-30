@@ -72,20 +72,25 @@ echo "[hermes-gateway] .env contents:"
 cat "${HERMES_HOME}/.env"
 echo ""
 echo "[hermes-gateway] SOUL.md exists: $(test -f ${HERMES_HOME}/SOUL.md && echo yes || echo no)"
-echo "[hermes-gateway] Starting Hermes gateway (verbose)..."
+echo "[hermes-gateway] Checking hermes installation..."
+which hermes
+hermes --version 2>&1 || true
+pip3 show hermes-agent 2>&1 | head -5 || true
+
+echo "[hermes-gateway] Checking Python module structure..."
 python3 -c "
-import sys
-sys.path.insert(0, '/usr/local/lib/python3.11/site-packages')
-try:
-    from hermes_agent.gateway.run import main as gateway_main
-    print('[debug] About to call gateway_main()', flush=True)
-    gateway_main()
-except Exception as e:
-    print(f'[debug] Gateway exception: {type(e).__name__}: {e}', flush=True)
-    import traceback
-    traceback.print_exc()
-    sys.exit(1)
-" 2>&1
+import importlib, pkgutil
+# Find hermes-related packages
+for pkg in pkgutil.iter_modules():
+    if 'hermes' in pkg.name.lower():
+        print(f'Found module: {pkg.name}')
+" 2>&1 || true
+
+echo "[hermes-gateway] Starting Hermes gateway (verbose)..."
+hermes gateway run -v 2>&1 &
+GW_PID=$!
+echo "[hermes-gateway] Gateway PID: ${GW_PID}"
+wait ${GW_PID}
 EXIT_CODE=$?
 echo "[hermes-gateway] Gateway exited with code ${EXIT_CODE}"
 echo "[hermes-gateway] Sleeping to prevent restart loop..."
