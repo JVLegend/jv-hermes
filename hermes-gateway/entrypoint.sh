@@ -9,7 +9,7 @@ cat > "${HERMES_HOME}/config.yaml" << HERMESCONFIG
 model:
   default: kimi-k2.5
   provider: kimi-coding
-  base_url: https://api.moonshot.ai/v1
+  base_url: ${KIMI_BASE_URL:-https://api.kimi.com/coding/v1}
 toolsets:
 - hermes-cli
 agent:
