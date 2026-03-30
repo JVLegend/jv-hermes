@@ -58,16 +58,13 @@ SERVER_PID=$!
 
 # Wait for embedded postgres + server to be ready, then bootstrap CEO if needed
 (
-  echo "[railway-init] Waiting for server to start..."
-  sleep 20
+  echo "[railway-init] Waiting 25s for server + embedded postgres to initialize..."
+  sleep 25
   cd /app
-  EMBEDDED_DB="postgres://paperclip:paperclip@127.0.0.1:54329/paperclip"
-  BOOTSTRAP_OUT=$(DATABASE_URL="${EMBEDDED_DB}" \
-    PAPERCLIP_PUBLIC_URL="${PAPERCLIP_PUBLIC_URL:-https://jv-paperclip-production.up.railway.app}" \
-    PAPERCLIP_CONFIG="${PAPERCLIP_CONFIG}" \
-    node --import ./server/node_modules/tsx/dist/loader.mjs cli/src/index.ts auth bootstrap-ceo \
-    --db-url "${EMBEDDED_DB}" 2>&1)
-  echo "[railway-init] bootstrap-ceo: ${BOOTSTRAP_OUT}"
+  PUBLIC_URL="${PAPERCLIP_PUBLIC_URL:-https://jv-paperclip-production.up.railway.app}"
+  echo "[railway-init] Running bootstrap-ceo..."
+  node --import ./server/node_modules/tsx/dist/loader.mjs cli/src/index.ts auth bootstrap-ceo \
+    --base-url "${PUBLIC_URL}" 2>&1 | sed 's/^/[bootstrap-ceo] /'
 ) &
 
 wait $SERVER_PID
