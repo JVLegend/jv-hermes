@@ -52,6 +52,32 @@ else
   fi
 fi
 
+# Write config.json so CLI commands (bootstrap-ceo) can find it
+INSTANCE_DIR="/paperclip/instances/default"
+mkdir -p "${INSTANCE_DIR}"
+if [ ! -f "${INSTANCE_DIR}/config.json" ]; then
+  echo "[railway-init] Writing config.json..."
+  PUBLIC_URL="${PAPERCLIP_PUBLIC_URL:-https://jv-paperclip-production.up.railway.app}"
+  cat > "${INSTANCE_DIR}/config.json" << PAPERCLIPCONFIG
+{
+  "server": {
+    "host": "0.0.0.0",
+    "port": 3100,
+    "deploymentMode": "authenticated",
+    "exposure": "public"
+  },
+  "auth": {
+    "baseUrlMode": "explicit",
+    "publicBaseUrl": "${PUBLIC_URL}"
+  },
+  "database": {
+    "mode": "embedded-postgres",
+    "embeddedPostgresPort": 54329
+  }
+}
+PAPERCLIPCONFIG
+fi
+
 echo "[railway-init] Starting Paperclip..."
 node --import ./server/node_modules/tsx/dist/loader.mjs server/dist/index.js &
 SERVER_PID=$!
