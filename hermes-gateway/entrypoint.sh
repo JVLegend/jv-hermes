@@ -1,5 +1,5 @@
 #!/bin/bash
-# set -e  # disabled for debugging
+set -e
 
 HERMES_HOME="${HOME}/.hermes"
 mkdir -p "${HERMES_HOME}/skills/productivity/jv-superpersona"
@@ -65,33 +65,5 @@ if [ -n "${HERMES_SUPERPERSONA_CONTENT}" ]; then
   echo "${HERMES_SUPERPERSONA_CONTENT}" | base64 -d > "${HERMES_HOME}/skills/productivity/jv-superpersona/SKILL.md"
 fi
 
-echo "[hermes-gateway] Config written. Contents:"
-cat "${HERMES_HOME}/config.yaml"
-echo ""
-echo "[hermes-gateway] .env contents:"
-cat "${HERMES_HOME}/.env"
-echo ""
-echo "[hermes-gateway] SOUL.md exists: $(test -f ${HERMES_HOME}/SOUL.md && echo yes || echo no)"
-echo "[hermes-gateway] Checking hermes installation..."
-which hermes
-hermes --version 2>&1 || true
-pip3 show hermes-agent 2>&1 | head -5 || true
-
-echo "[hermes-gateway] Checking Python module structure..."
-python3 -c "
-import importlib, pkgutil
-# Find hermes-related packages
-for pkg in pkgutil.iter_modules():
-    if 'hermes' in pkg.name.lower():
-        print(f'Found module: {pkg.name}')
-" 2>&1 || true
-
-echo "[hermes-gateway] Starting Hermes gateway (verbose)..."
-hermes gateway run -v 2>&1 &
-GW_PID=$!
-echo "[hermes-gateway] Gateway PID: ${GW_PID}"
-wait ${GW_PID}
-EXIT_CODE=$?
-echo "[hermes-gateway] Gateway exited with code ${EXIT_CODE}"
-echo "[hermes-gateway] Sleeping to prevent restart loop..."
-sleep 300
+echo "[hermes-gateway] Starting Hermes gateway..."
+exec hermes gateway run --replace
