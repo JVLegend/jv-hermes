@@ -102,29 +102,7 @@ SERVER_PID=$!
   # Create board API key for programmatic setup (if SETUP_API_KEY env is set)
   if [ -n "${SETUP_API_KEY}" ]; then
     echo "[railway-init] Creating board API key for programmatic setup..."
-    node -e "
-      const { createHash } = require('crypto');
-      const pg = require('pg');
-      const client = new pg.Client('postgres://paperclip:paperclip@127.0.0.1:54329/paperclip');
-      (async () => {
-        await client.connect();
-        const { rows: users } = await client.query(
-          'SELECT user_id FROM instance_user_roles WHERE role = \\'instance_admin\\' LIMIT 1'
-        );
-        if (!users.length) { console.log('[setup-key] No admin user found'); process.exit(0); }
-        const userId = users[0].user_id;
-        const token = process.env.SETUP_API_KEY;
-        const hash = createHash('sha256').update(token).digest('hex');
-        // Upsert: delete old setup key, insert new
-        await client.query('DELETE FROM board_api_keys WHERE name = \\'railway-setup\\'');
-        await client.query(
-          'INSERT INTO board_api_keys (id, user_id, name, key_hash, created_at) VALUES (gen_random_uuid(), \$1, \\'railway-setup\\', \$2, NOW())',
-          [userId, hash]
-        );
-        console.log('[setup-key] Board API key created successfully for user ' + userId);
-        await client.end();
-      })().catch(e => { console.error('[setup-key] Error:', e.message); process.exit(0); });
-    " 2>&1
+    node /app/scripts/create-board-key.mjs 2>&1
   fi
 ) &
 
