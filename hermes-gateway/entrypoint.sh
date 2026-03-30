@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+# set -e  # disabled for debugging
 
 HERMES_HOME="${HOME}/.hermes"
 mkdir -p "${HERMES_HOME}/skills/productivity/jv-superpersona"
