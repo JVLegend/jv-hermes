@@ -60,6 +60,7 @@ if [ ! -f "${INSTANCE_DIR}/config.json" ]; then
   PUBLIC_URL="${PAPERCLIP_PUBLIC_URL:-https://jv-paperclip-production.up.railway.app}"
   cat > "${INSTANCE_DIR}/config.json" << PAPERCLIPCONFIG
 {
+  "\$meta": { "version": 1, "updatedAt": "$(date -u +%Y-%m-%dT%H:%M:%SZ)", "source": "onboard" },
   "server": {
     "host": "0.0.0.0",
     "port": 3100,
@@ -73,6 +74,10 @@ if [ ! -f "${INSTANCE_DIR}/config.json" ]; then
   "database": {
     "mode": "embedded-postgres",
     "embeddedPostgresPort": 54329
+  },
+  "logging": {
+    "mode": "file",
+    "logDir": "/paperclip/instances/default/logs"
   }
 }
 PAPERCLIPCONFIG
