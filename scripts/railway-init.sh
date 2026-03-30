@@ -1,6 +1,13 @@
 #!/bin/bash
 set -e
 
+# Ensure /paperclip is writable (Railway volume mount may reset permissions)
+if [ -w /paperclip ] || mkdir -p /paperclip 2>/dev/null; then
+  echo "[railway-init] /paperclip is writable"
+else
+  echo "[railway-init] WARNING: /paperclip not writable, running as $(whoami)"
+fi
+
 VAULT_DIR="/paperclip/vault/SuperJV"
 HERMES_HOME="${HOME}/.hermes"
 
