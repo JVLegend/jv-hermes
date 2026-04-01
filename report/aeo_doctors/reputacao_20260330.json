@@ -1,0 +1,24 @@
+{
+  "data_geracao": "2026-03-30T00:29:53.401243",
+  "concorrentes": [
+    {
+      "nome": "IA para Medicos",
+      "cliente_relacionado": "IA para Medicos",
+      "reclame_aqui": {
+        "url": "https://www.reclameaqui.com.br/busca/?q=iaparamedicos",
+        "nota": "N/A",
+        "reviews_negativos_detectados": 0,
+        "texto_amostra": "N/A",
+        "data_coleta": "2026-03-30T00:29:57.966000"
+      },
+      "doctoralia": {
+        "url": null,
+        "estrelas": "N/A",
+        "total_avaliacoes": "N/A",
+        "texto_amostra": "N/A",
+        "data_coleta": "2026-03-30T00:30:01.184790"
+      }
+    }
+  ],
+  "alertas": []
+}

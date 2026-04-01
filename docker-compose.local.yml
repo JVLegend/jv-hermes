@@ -1,0 +1,81 @@
+# docker-compose.local.yml — Reproduzir toda a stack localmente
+# Uso: docker compose -f docker-compose.local.yml up
+#
+# Antes de rodar, crie um .env.local com as variáveis sensíveis:
+#   KIMI_API_KEY=sk-kimi-...
+#   GITHUB_TOKEN=github_pat_...
+#   TELEGRAM_TOKEN_CLAUDIO=<token do @claudiohermesbot>
+#   TELEGRAM_TOKEN_CLAUDINHO=<token do @claudinhojvbot>
+#   BETTER_AUTH_SECRET=<openssl rand -hex 32>
+#   HERMES_SOUL_CLAUDIO=<base64 de SOUL-claudiohermes.md>
+#   HERMES_SOUL_CLAUDINHO=<base64 de SOUL-claudinho.md>
+#   HERMES_SUPERPERSONA=<base64 da skill superpersona>
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: paperclip
+      POSTGRES_PASSWORD: paperclip
+      POSTGRES_DB: paperclip
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  paperclip:
+    build:
+      context: .
+      dockerfile: Dockerfile.railway
+    depends_on:
+      - postgres
+    ports:
+      - "3100:3100"
+    environment:
+      DATABASE_URL: postgresql://paperclip:paperclip@postgres:5432/paperclip
+      BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET}
+      PAPERCLIP_PUBLIC_URL: http://localhost:3100
+      SETUP_API_KEY: sk-setup-local
+      GITHUB_TOKEN: ${GITHUB_TOKEN}
+      KIMI_API_KEY: ${KIMI_API_KEY}
+      HERMES_SOUL_CONTENT: ${HERMES_SOUL_CLAUDIO}
+      HERMES_SUPERPERSONA_CONTENT: ${HERMES_SUPERPERSONA}
+      PORT: 3100
+      SERVE_UI: "true"
+      PAPERCLIP_DEPLOYMENT_MODE: authenticated
+      PAPERCLIP_MIGRATION_AUTO_APPLY: "true"
+
+  hermes-claudiohermes:
+    build:
+      context: ./hermes-gateway
+      dockerfile: Dockerfile
+    depends_on:
+      - paperclip
+    environment:
+      TELEGRAM_BOT_TOKEN: ${TELEGRAM_TOKEN_CLAUDIO}
+      KIMI_API_KEY: ${KIMI_API_KEY}
+      HERMES_SOUL_CONTENT: ${HERMES_SOUL_CLAUDIO}
+      HERMES_SUPERPERSONA_CONTENT: ${HERMES_SUPERPERSONA}
+      GATEWAY_ALLOW_ALL_USERS: "true"
+      PAPERCLIP_API_URL: http://paperclip:3100/api
+      PAPERCLIP_API_KEY: pcp_board_setup_local
+      PAPERCLIP_COMPANY_ID: ${COMPANY_ID_JVAILABS:-changeme}
+
+  hermes-claudinho:
+    build:
+      context: ./hermes-gateway
+      dockerfile: Dockerfile
+    depends_on:
+      - paperclip
+    environment:
+      TELEGRAM_BOT_TOKEN: ${TELEGRAM_TOKEN_CLAUDINHO}
+      KIMI_API_KEY: ${KIMI_API_KEY}
+      HERMES_SOUL_CONTENT: ${HERMES_SOUL_CLAUDINHO}
+      HERMES_SUPERPERSONA_CONTENT: ${HERMES_SUPERPERSONA}
+      GATEWAY_ALLOW_ALL_USERS: "true"
+      PAPERCLIP_API_URL: http://paperclip:3100/api
+      PAPERCLIP_API_KEY: pcp_board_setup_local
+      PAPERCLIP_COMPANY_ID: ${COMPANY_ID_FAMILIA:-changeme}
+
+volumes:
+  pgdata:

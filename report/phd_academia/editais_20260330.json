@@ -1,0 +1,210 @@
+{
+  "data_geracao": "2026-03-30T00:25:12.594618",
+  "total_editais": 10,
+  "novos_editais": 10,
+  "alta_relevancia": 10,
+  "editais": [
+    {
+      "titulo": "Programa",
+      "fonte": "CAPES",
+      "url": "https://www.capes.gov.br/editais",
+      "data_extracao": "2026-03-30T00:25:08.804856",
+      "palavras_chave": [
+        "inteligência artificial"
+      ],
+      "relevancia": "ALTA"
+    },
+    {
+      "titulo": "programa",
+      "fonte": "CAPES",
+      "url": "https://www.capes.gov.br/editais",
+      "data_extracao": "2026-03-30T00:25:08.805193",
+      "palavras_chave": [
+        "inteligência artificial"
+      ],
+      "relevancia": "ALTA"
+    },
+    {
+      "titulo": "Programa",
+      "fonte": "CAPES",
+      "url": "https://www.capes.gov.br/editais",
+      "data_extracao": "2026-03-30T00:25:08.805449",
+      "palavras_chave": [
+        "inteligência artificial"
+      ],
+      "relevancia": "ALTA"
+    },
+    {
+      "titulo": "programa",
+      "fonte": "CAPES",
+      "url": "https://www.capes.gov.br/editais",
+      "data_extracao": "2026-03-30T00:25:08.805630",
+      "palavras_chave": [
+        "inteligência artificial"
+      ],
+      "relevancia": "ALTA"
+    },
+    {
+      "titulo": "Programa",
+      "fonte": "CAPES",
+      "url": "https://www.capes.gov.br/editais",
+      "data_extracao": "2026-03-30T00:25:08.805813",
+      "palavras_chave": [
+        "inteligência artificial"
+      ],
+      "relevancia": "ALTA"
+    },
+    {
+      "titulo": "Programa",
+      "fonte": "CAPES",
+      "url": "https://www.capes.gov.br/editais",
+      "data_extracao": "2026-03-30T00:25:08.806016",
+      "palavras_chave": [
+        "inteligência artificial"
+      ],
+      "relevancia": "ALTA"
+    },
+    {
+      "titulo": "programa",
+      "fonte": "CAPES",
+      "url": "https://www.capes.gov.br/editais",
+      "data_extracao": "2026-03-30T00:25:08.806212",
+      "palavras_chave": [
+        "inteligência artificial"
+      ],
+      "relevancia": "ALTA"
+    },
+    {
+      "titulo": "Programa",
+      "fonte": "CAPES",
+      "url": "https://www.capes.gov.br/editais",
+      "data_extracao": "2026-03-30T00:25:08.806355",
+      "palavras_chave": [
+        "inteligência artificial"
+      ],
+      "relevancia": "ALTA"
+    },
+    {
+      "titulo": "Programa",
+      "fonte": "CAPES",
+      "url": "https://www.capes.gov.br/editais",
+      "data_extracao": "2026-03-30T00:25:08.806491",
+      "palavras_chave": [
+        "inteligência artificial"
+      ],
+      "relevancia": "ALTA"
+    },
+    {
+      "titulo": "Programa",
+      "fonte": "CAPES",
+      "url": "https://www.capes.gov.br/editais",
+      "data_extracao": "2026-03-30T00:25:08.806626",
+      "palavras_chave": [
+        "inteligência artificial"
+      ],
+      "relevancia": "ALTA"
+    }
+  ],
+  "alertas_novos": [
+    {
+      "titulo": "Programa",
+      "fonte": "CAPES",
+      "url": "https://www.capes.gov.br/editais",
+      "data_extracao": "2026-03-30T00:25:08.804856",
+      "palavras_chave": [
+        "inteligência artificial"
+      ],
+      "relevancia": "ALTA"
+    },
+    {
+      "titulo": "programa",
+      "fonte": "CAPES",
+      "url": "https://www.capes.gov.br/editais",
+      "data_extracao": "2026-03-30T00:25:08.805193",
+      "palavras_chave": [
+        "inteligência artificial"
+      ],
+      "relevancia": "ALTA"
+    },
+    {
+      "titulo": "Programa",
+      "fonte": "CAPES",
+      "url": "https://www.capes.gov.br/editais",
+      "data_extracao": "2026-03-30T00:25:08.805449",
+      "palavras_chave": [
+        "inteligência artificial"
+      ],
+      "relevancia": "ALTA"
+    },
+    {
+      "titulo": "programa",
+      "fonte": "CAPES",
+      "url": "https://www.capes.gov.br/editais",
+      "data_extracao": "2026-03-30T00:25:08.805630",
+      "palavras_chave": [
+        "inteligência artificial"
+      ],
+      "relevancia": "ALTA"
+    },
+    {
+      "titulo": "Programa",
+      "fonte": "CAPES",
+      "url": "https://www.capes.gov.br/editais",
+      "data_extracao": "2026-03-30T00:25:08.805813",
+      "palavras_chave": [
+        "inteligência artificial"
+      ],
+      "relevancia": "ALTA"
+    },
+    {
+      "titulo": "Programa",
+      "fonte": "CAPES",
+      "url": "https://www.capes.gov.br/editais",
+      "data_extracao": "2026-03-30T00:25:08.806016",
+      "palavras_chave": [
+        "inteligência artificial"
+      ],
+      "relevancia": "ALTA"
+    },
+    {
+      "titulo": "programa",
+      "fonte": "CAPES",
+      "url": "https://www.capes.gov.br/editais",
+      "data_extracao": "2026-03-30T00:25:08.806212",
+      "palavras_chave": [
+        "inteligência artificial"
+      ],
+      "relevancia": "ALTA"
+    },
+    {
+      "titulo": "Programa",
+      "fonte": "CAPES",
+      "url": "https://www.capes.gov.br/editais",
+      "data_extracao": "2026-03-30T00:25:08.806355",
+      "palavras_chave": [
+        "inteligência artificial"
+      ],
+      "relevancia": "ALTA"
+    },
+    {
+      "titulo": "Programa",
+      "fonte": "CAPES",
+      "url": "https://www.capes.gov.br/editais",
+      "data_extracao": "2026-03-30T00:25:08.806491",
+      "palavras_chave": [
+        "inteligência artificial"
+      ],
+      "relevancia": "ALTA"
+    },
+    {
+      "titulo": "Programa",
+      "fonte": "CAPES",
+      "url": "https://www.capes.gov.br/editais",
+      "data_extracao": "2026-03-30T00:25:08.806626",
+      "palavras_chave": [
+        "inteligência artificial"
+      ],
+      "relevancia": "ALTA"
+    }
+  ]
+}

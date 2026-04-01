@@ -55,6 +55,7 @@ RUN mkdir -p /paperclip \
   && chown node:node /paperclip
 
 COPY --chown=node:node scripts/railway-init.sh scripts/create-board-key.mjs scripts/learnings.mjs scripts/learnings.sh /app/scripts/
+COPY --chown=node:node hermes-gateway/ /app/hermes-gateway-recovery/
 RUN chmod +x /app/scripts/railway-init.sh /app/scripts/learnings.sh
 
 ENV NODE_ENV=production \

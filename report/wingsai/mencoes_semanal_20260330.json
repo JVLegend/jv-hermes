@@ -1,0 +1,22 @@
+{
+  "data_geracao": "2026-03-30T00:24:46.362188",
+  "periodo": "Semanal",
+  "clientes": [
+    {
+      "nome": "IA para Medicos",
+      "mencoes": [],
+      "reclame_aqui": {
+        "encontrado": false,
+        "url": "https://www.reclameaqui.com.br/busca/?q=IA+para+Medicos"
+      }
+    },
+    {
+      "nome": "AEO Doctors",
+      "mencoes": [],
+      "reclame_aqui": {
+        "encontrado": false,
+        "url": "https://www.reclameaqui.com.br/busca/?q=AEO+Doctors"
+      }
+    }
+  ]
+}

@@ -1,0 +1,166 @@
+{
+  "data_geracao": "2026-03-30T00:25:26.553165",
+  "total_artigos": 6,
+  "novos_artigos": 6,
+  "alta_relevancia": 2,
+  "media_relevancia": 4,
+  "stats_por_topico": {
+    "smartphone": 2
+  },
+  "artigos": [
+    {
+      "titulo": "Assessing a deep learning tool for cataract detection using a public dataset",
+      "fonte": "SciELO",
+      "url": "https://search.scielo.org/?q=oftalmologia+inteligencia+artificial&lang=pt&count=15&from=0&output=site&sort=&format=summary&fb=&page=1",
+      "area": "Oftalmologia + IA",
+      "keywords_encontradas": [
+        "deep learning"
+      ],
+      "topicos_phd": [],
+      "relevancia": "MEDIA",
+      "data_extracao": "2026-03-30T00:25:15.541737"
+    },
+    {
+      "titulo": "Desafios bioéticos do uso da inteligência artificial na oftalmologia",
+      "fonte": "SciELO",
+      "url": "https://search.scielo.org/?q=oftalmologia+inteligencia+artificial&lang=pt&count=15&from=0&output=site&sort=&format=summary&fb=&page=1",
+      "area": "Oftalmologia + IA",
+      "keywords_encontradas": [
+        "inteligência artificial"
+      ],
+      "topicos_phd": [],
+      "relevancia": "MEDIA",
+      "data_extracao": "2026-03-30T00:25:15.541870"
+    },
+    {
+      "titulo": "Diagnóstico da retinopatia diabética por inteligência artificial por meio de smartphone",
+      "fonte": "SciELO",
+      "url": "https://search.scielo.org/?q=oftalmologia+inteligencia+artificial&lang=pt&count=15&from=0&output=site&sort=&format=summary&fb=&page=1",
+      "area": "Oftalmologia + IA",
+      "keywords_encontradas": [
+        "inteligência artificial"
+      ],
+      "topicos_phd": [
+        "smartphone"
+      ],
+      "relevancia": "ALTA",
+      "data_extracao": "2026-03-30T00:25:15.541912"
+    },
+    {
+      "titulo": "Diagnostic utility of artificial intelligence software through non-mydriatic digital retinography in the screening of diabetic retinopathy: an overview of reviews.",
+      "fonte": "LILACS",
+      "url": "https://pesquisa.bvsalud.org/portal/?output=site&lang=pt&from=0&sort=&format=summary&count=20&fb=&page=1&index=tw&q=oftalmologia+AND+inteligencia+artificial",
+      "area": "Literatura em Saúde",
+      "keywords_encontradas": [
+        "screening"
+      ],
+      "topicos_phd": [],
+      "relevancia": "MEDIA",
+      "data_extracao": "2026-03-30T00:25:26.552369"
+    },
+    {
+      "titulo": "Diagnóstico da retinopatia diabética por inteligência artificial por meio de smartphone /  Diagnosis of diabetic retinopathy by artificial intelligence using smartphone",
+      "fonte": "LILACS",
+      "url": "https://pesquisa.bvsalud.org/portal/?output=site&lang=pt&from=0&sort=&format=summary&count=20&fb=&page=1&index=tw&q=oftalmologia+AND+inteligencia+artificial",
+      "area": "Literatura em Saúde",
+      "keywords_encontradas": [
+        "inteligência artificial"
+      ],
+      "topicos_phd": [
+        "smartphone"
+      ],
+      "relevancia": "ALTA",
+      "data_extracao": "2026-03-30T00:25:26.552481"
+    },
+    {
+      "titulo": "Machine learning in image analysis in ophthalmology.",
+      "fonte": "LILACS",
+      "url": "https://pesquisa.bvsalud.org/portal/?output=site&lang=pt&from=0&sort=&format=summary&count=20&fb=&page=1&index=tw&q=oftalmologia+AND+inteligencia+artificial",
+      "area": "Literatura em Saúde",
+      "keywords_encontradas": [
+        "machine learning"
+      ],
+      "topicos_phd": [],
+      "relevancia": "MEDIA",
+      "data_extracao": "2026-03-30T00:25:26.552616"
+    }
+  ],
+  "alertas_novos": [
+    {
+      "titulo": "Assessing a deep learning tool for cataract detection using a public dataset",
+      "fonte": "SciELO",
+      "url": "https://search.scielo.org/?q=oftalmologia+inteligencia+artificial&lang=pt&count=15&from=0&output=site&sort=&format=summary&fb=&page=1",
+      "area": "Oftalmologia + IA",
+      "keywords_encontradas": [
+        "deep learning"
+      ],
+      "topicos_phd": [],
+      "relevancia": "MEDIA",
+      "data_extracao": "2026-03-30T00:25:15.541737"
+    },
+    {
+      "titulo": "Desafios bioéticos do uso da inteligência artificial na oftalmologia",
+      "fonte": "SciELO",
+      "url": "https://search.scielo.org/?q=oftalmologia+inteligencia+artificial&lang=pt&count=15&from=0&output=site&sort=&format=summary&fb=&page=1",
+      "area": "Oftalmologia + IA",
+      "keywords_encontradas": [
+        "inteligência artificial"
+      ],
+      "topicos_phd": [],
+      "relevancia": "MEDIA",
+      "data_extracao": "2026-03-30T00:25:15.541870"
+    },
+    {
+      "titulo": "Diagnóstico da retinopatia diabética por inteligência artificial por meio de smartphone",
+      "fonte": "SciELO",
+      "url": "https://search.scielo.org/?q=oftalmologia+inteligencia+artificial&lang=pt&count=15&from=0&output=site&sort=&format=summary&fb=&page=1",
+      "area": "Oftalmologia + IA",
+      "keywords_encontradas": [
+        "inteligência artificial"
+      ],
+      "topicos_phd": [
+        "smartphone"
+      ],
+      "relevancia": "ALTA",
+      "data_extracao": "2026-03-30T00:25:15.541912"
+    },
+    {
+      "titulo": "Diagnostic utility of artificial intelligence software through non-mydriatic digital retinography in the screening of diabetic retinopathy: an overview of reviews.",
+      "fonte": "LILACS",
+      "url": "https://pesquisa.bvsalud.org/portal/?output=site&lang=pt&from=0&sort=&format=summary&count=20&fb=&page=1&index=tw&q=oftalmologia+AND+inteligencia+artificial",
+      "area": "Literatura em Saúde",
+      "keywords_encontradas": [
+        "screening"
+      ],
+      "topicos_phd": [],
+      "relevancia": "MEDIA",
+      "data_extracao": "2026-03-30T00:25:26.552369"
+    },
+    {
+      "titulo": "Diagnóstico da retinopatia diabética por inteligência artificial por meio de smartphone /  Diagnosis of diabetic retinopathy by artificial intelligence using smartphone",
+      "fonte": "LILACS",
+      "url": "https://pesquisa.bvsalud.org/portal/?output=site&lang=pt&from=0&sort=&format=summary&count=20&fb=&page=1&index=tw&q=oftalmologia+AND+inteligencia+artificial",
+      "area": "Literatura em Saúde",
+      "keywords_encontradas": [
+        "inteligência artificial"
+      ],
+      "topicos_phd": [
+        "smartphone"
+      ],
+      "relevancia": "ALTA",
+      "data_extracao": "2026-03-30T00:25:26.552481"
+    },
+    {
+      "titulo": "Machine learning in image analysis in ophthalmology.",
+      "fonte": "LILACS",
+      "url": "https://pesquisa.bvsalud.org/portal/?output=site&lang=pt&from=0&sort=&format=summary&count=20&fb=&page=1&index=tw&q=oftalmologia+AND+inteligencia+artificial",
+      "area": "Literatura em Saúde",
+      "keywords_encontradas": [
+        "machine learning"
+      ],
+      "topicos_phd": [],
+      "relevancia": "MEDIA",
+      "data_extracao": "2026-03-30T00:25:26.552616"
+    }
+  ]
+}

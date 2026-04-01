@@ -103,6 +103,36 @@ if [ ! -f "${INSTANCE_DIR}/config.json" ]; then
 PAPERCLIPCONFIG
 fi
 
+# ── Backup recovery files to persistent volume ──
+RECOVERY_DIR="/paperclip/recovery"
+mkdir -p "${RECOVERY_DIR}/hermes-gateway/skills/paperclip-bridge"
+echo "[railway-init] Backing up recovery files to ${RECOVERY_DIR}..."
+
+# Paperclip custom files
+cp /app/Dockerfile.railway "${RECOVERY_DIR}/" 2>/dev/null || true
+cp /app/scripts/railway-init.sh "${RECOVERY_DIR}/" 2>/dev/null || true
+cp /app/scripts/learnings.mjs "${RECOVERY_DIR}/" 2>/dev/null || true
+cp /app/scripts/learnings.sh "${RECOVERY_DIR}/" 2>/dev/null || true
+cp /app/scripts/create-board-key.mjs "${RECOVERY_DIR}/" 2>/dev/null || true
+
+# Hermes Gateway recovery files (SOULs, Dockerfile, entrypoint, skills, seed)
+if [ -d /app/hermes-gateway-recovery ]; then
+  cp -r /app/hermes-gateway-recovery/* "${RECOVERY_DIR}/hermes-gateway/" 2>/dev/null || true
+  echo "[railway-init] Hermes Gateway recovery files copied."
+fi
+
+# Hermes config generated in this init
+cp "${HERMES_HOME}/config.yaml" "${RECOVERY_DIR}/hermes-config.yaml" 2>/dev/null || true
+cp "${HERMES_HOME}/SOUL.md" "${RECOVERY_DIR}/SOUL-paperclip.md" 2>/dev/null || true
+
+# Snapshot env vars (redacted) for reference
+env | grep -E "^(PAPERCLIP_|DATABASE_|KIMI_|GITHUB_|SETUP_|BETTER_AUTH|SERVE_UI|PORT)" \
+  | sed 's/=.*/=<REDACTED>/' > "${RECOVERY_DIR}/env-vars-reference.txt" 2>/dev/null || true
+
+# Timestamp
+date -u +%Y-%m-%dT%H:%M:%SZ > "${RECOVERY_DIR}/last-backup.txt"
+echo "[railway-init] Recovery files saved to ${RECOVERY_DIR}."
+
 echo "[railway-init] Starting Paperclip..."
 node --import ./server/node_modules/tsx/dist/loader.mjs server/dist/index.js &
 SERVER_PID=$!
