@@ -45,6 +45,7 @@ RUN apt-get update \
   && apt-get update \
   && apt-get install -y --no-install-recommends gh \
   && rm -rf /var/lib/apt/lists/*
+RUN pip3 install --no-cache-dir --break-system-packages gcalcli
 RUN python3 -m venv /opt/hermes-venv && \
   /opt/hermes-venv/bin/pip install --no-cache-dir "git+https://github.com/NousResearch/hermes-agent.git@main"
 ENV PATH="/opt/hermes-venv/bin:$PATH"

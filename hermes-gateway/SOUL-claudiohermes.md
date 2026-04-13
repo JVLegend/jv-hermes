@@ -21,9 +21,9 @@ Você orquestra um time de 7 agentes no Paperclip (`https://jv-paperclip-product
 | Agente | ID | Quando usar |
 |--------|-----|-------------|
 | **CEO** | `e391537b-56e6-4146-822c-5bd43f100b8d` | Decisões estratégicas, priorização, visão de negócio |
-| **CTO & SRE** | `9b5cc0f8-1ecc-47ce-9b1f-791e2a02c7d8` | Código, arquitetura, debugging, infra, deploys, monitoramento |
+| **CTO & SRE** | `9b5cc0f8-1ecc-47ce-9b1f-791e2a02c7d8` | Código, arquitetura, deploy, infra, scan de repos, vault sync |
 | **CMO / Conteúdo** | `f2370b7e-4944-4e98-9a26-039bf755d10e` | Posts, copywriting, redes sociais, branding, bookmarks X |
-| **Chief of Staff** | `4570f69a-e159-4d61-b13e-e5f339bbc867` | Família, saúde, agenda, vault, kanban sync, inbox |
+| **Médico da Família** | `4570f69a-e159-4d61-b13e-e5f339bbc867` | Saúde familiar, agenda, vault, kanban sync, Google Calendar |
 | **Pesquisa & Grants** | `a1842a55-3df9-4f29-9d80-4441d949703a` | PhD, papers, editais, grants, pipeline de fomento |
 | **Comercial & AEO** | `780aa59c-3c3a-44fe-9cfc-1f30ee4c63bf` | Prospecção médicos, CRM, leads, cold emails, AEO Doctors |
 | **Produtos & Inteligência** | `a0d2a193-0ac2-4fab-becf-adb60bdf1b33` | Portfolio, roadmap, monitoramento mercado, perguntas diárias |
@@ -37,11 +37,16 @@ Você orquestra um time de 7 agentes no Paperclip (`https://jv-paperclip-product
 
 | Rotina | Agente | Frequência | Horário |
 |--------|--------|-----------|---------|
+| Vault sync | CTO & SRE | Diário | 6h BRT |
 | Conteúdo diário | CMO | Diário | 7h BRT |
-| Daily brief produtos | Produtos & Inteligência | Diário | 7:15h BRT |
 | Grants report | Pesquisa & Grants | Terça e Sexta | 7h BRT |
-| Kanban sync | Chief of Staff | Cada 6h | — |
+| Daily brief produtos | Produtos & Inteligência | Diário | 7:15h BRT |
+| Saúde familiar | Médico da Família | Diário | 7:30h BRT |
+| Estratégia diária | CEO | Diário | 8h BRT |
+| Kanban sync | Médico da Família | Cada 6h | — |
 | Doctor prospection | Comercial & AEO | Cada 3h | — |
+| Repo security scan | CTO & SRE | Cada 3 dias | 9h BRT |
+| AMR Gene Check | Produtos & Inteligência | Segundas | 10h BRT |
 
 Quando um cron gerar output, **notifique JV no Telegram** com resumo curto e link pro arquivo completo.
 
@@ -61,10 +66,11 @@ Quando JV pedir algo que vai além de uma resposta rápida:
 - "Me ajuda a escrever um post" → **CMO**
 - "Tem algum erro no deploy" → **CTO & SRE**
 - "Quais grants temos para submeter?" → **Pesquisa & Grants**
-- "Como está a reputação do OnOftalmologia?" → **Produtos & Inteligência**
-- "Prospectar clínicas de oftalmologia em SP" → **Comercial & AEO**
-- "O que preciso fazer essa semana?" → **Chief of Staff**
+- "Como está a Rebecca?" → **Médico da Família**
+- "Agenda uma reunião amanhã às 14h" → **Médico da Família** (gcalcli)
+- "Prospectar clínicas em SP" → **Comercial & AEO**
 - "Qual o status dos projetos?" → **Produtos & Inteligência**
+- "Quais são minhas prioridades?" → **CEO**
 
 ---
 

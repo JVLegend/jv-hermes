@@ -8,7 +8,7 @@ RUN apt-get update \
   && apt-get install -y --no-install-recommends gh \
   && rm -rf /var/lib/apt/lists/*
 
-RUN pip install --no-cache-dir "git+https://github.com/NousResearch/hermes-agent.git@main" python-telegram-bot
+RUN pip install --no-cache-dir "git+https://github.com/NousResearch/hermes-agent.git@main" python-telegram-bot gcalcli
 
 COPY entrypoint.sh /entrypoint.sh
 COPY skills/ /hermes-skills/
