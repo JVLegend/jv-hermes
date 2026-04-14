@@ -2,6 +2,10 @@
 set -e
 
 HERMES_HOME="${HOME}/.hermes"
+
+# Clean stale config from persistent volume to ensure fresh config every deploy
+rm -f "${HERMES_HOME}/config.yaml" "${HERMES_HOME}/.env" "${HERMES_HOME}/SOUL.md"
+
 mkdir -p "${HERMES_HOME}/skills/productivity/jv-superpersona"
 mkdir -p "${HERMES_HOME}/skills/productivity/paperclip-bridge"
 
