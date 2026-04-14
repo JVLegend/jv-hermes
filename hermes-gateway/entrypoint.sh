@@ -14,14 +14,20 @@ fi
 
 # Detect LLM provider: Gemini (default) or Kimi (fallback)
 if [ -n "${GOOGLE_API_KEY}" ]; then
-  LLM_MODEL="${HERMES_MODEL:-gemini-2.5-flash}"
-  LLM_PROVIDER="google"
-  LLM_BASE_URL="${GOOGLE_BASE_URL:-https://generativelanguage.googleapis.com/v1beta}"
+  export LLM_MODEL="${HERMES_MODEL:-gemini-2.0-flash}"
+  export LLM_PROVIDER="google"
+  export LLM_BASE_URL="${GOOGLE_BASE_URL:-https://generativelanguage.googleapis.com/v1beta}"
+  export HERMES_MODEL="${LLM_MODEL}"
+  export HERMES_PROVIDER="google"
+  export HERMES_INFERENCE_PROVIDER="gemini"
   echo "[hermes-gateway] LLM: Gemini (${LLM_MODEL})"
 elif [ -n "${KIMI_API_KEY}" ]; then
-  LLM_MODEL="${HERMES_MODEL:-kimi-k2.5}"
-  LLM_PROVIDER="kimi-coding"
-  LLM_BASE_URL="${KIMI_BASE_URL:-https://api.kimi.com/coding/v1}"
+  export LLM_MODEL="${HERMES_MODEL:-kimi-k2.5}"
+  export LLM_PROVIDER="kimi-coding"
+  export LLM_BASE_URL="${KIMI_BASE_URL:-https://api.kimi.com/coding/v1}"
+  export HERMES_MODEL="${LLM_MODEL}"
+  export HERMES_PROVIDER="kimi-coding"
+  export HERMES_INFERENCE_PROVIDER="kimi"
   echo "[hermes-gateway] LLM: Kimi (${LLM_MODEL})"
 else
   echo "[hermes-gateway] ERRO: nenhuma API key encontrada (GOOGLE_API_KEY ou KIMI_API_KEY)"
