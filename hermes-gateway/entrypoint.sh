@@ -99,6 +99,11 @@ CRON_DIR="${HERMES_HOME}/cron"
 mkdir -p "${CRON_DIR}/output"
 SERVICE_NAME="${RAILWAY_SERVICE_NAME:-unknown}"
 
+# Force re-seed if HERMES_FORCE_CRON_RESEED=true (one-time fix for stale crons)
+if [ "${HERMES_FORCE_CRON_RESEED}" = "true" ]; then
+  rm -f "${CRON_DIR}/jobs.json"
+  echo "[hermes-gateway] Force cron reseed requested"
+fi
 if [ ! -f "${CRON_DIR}/jobs.json" ]; then
   echo "[hermes-gateway] Seeding cron jobs for ${SERVICE_NAME}..."
 
