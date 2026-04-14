@@ -8,12 +8,22 @@ rm -f "${HERMES_HOME}/config.yaml" "${HERMES_HOME}/.env" "${HERMES_HOME}/SOUL.md
 
 mkdir -p "${HERMES_HOME}/skills/productivity/jv-superpersona"
 mkdir -p "${HERMES_HOME}/skills/productivity/paperclip-bridge"
+mkdir -p "${HERMES_HOME}/skills/productivity/doctor-prospector"
+mkdir -p "${HERMES_HOME}/skills/productivity/grant-tracker"
 
-# Copy paperclip-bridge skill from Docker image
+# Copy skills from Docker image
 if [ -d /hermes-skills/paperclip-bridge ]; then
-  cp /hermes-skills/paperclip-bridge/* "${HERMES_HOME}/skills/productivity/paperclip-bridge/"
-  chmod +x "${HERMES_HOME}/skills/productivity/paperclip-bridge/pcp.sh"
+  cp /hermes-skills/paperclip-bridge/* "${HERMES_HOME}/skills/productivity/paperclip-bridge/" 2>/dev/null
+  chmod +x "${HERMES_HOME}/skills/productivity/paperclip-bridge/pcp.sh" 2>/dev/null
   echo "[hermes-gateway] paperclip-bridge skill installed."
+fi
+if [ -d /hermes-skills/doctor-prospector ]; then
+  cp /hermes-skills/doctor-prospector/* "${HERMES_HOME}/skills/productivity/doctor-prospector/"
+  echo "[hermes-gateway] doctor-prospector skill installed."
+fi
+if [ -d /hermes-skills/grant-tracker ]; then
+  cp /hermes-skills/grant-tracker/* "${HERMES_HOME}/skills/productivity/grant-tracker/"
+  echo "[hermes-gateway] grant-tracker skill installed."
 fi
 
 # Detect LLM provider: Gemini (default) or Kimi (fallback)
