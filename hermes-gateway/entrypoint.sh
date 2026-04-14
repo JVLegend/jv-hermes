@@ -10,21 +10,19 @@ mkdir -p "${HERMES_HOME}/skills/productivity/jv-superpersona"
 mkdir -p "${HERMES_HOME}/skills/productivity/paperclip-bridge"
 mkdir -p "${HERMES_HOME}/skills/productivity/doctor-prospector"
 mkdir -p "${HERMES_HOME}/skills/productivity/grant-tracker"
+mkdir -p "${HERMES_HOME}/skills/productivity/saude-criancas"
+mkdir -p "${HERMES_HOME}/skills/productivity/karine-vendas"
+mkdir -p "${HERMES_HOME}/skills/productivity/casal-fe"
 
-# Copy skills from Docker image
-if [ -d /hermes-skills/paperclip-bridge ]; then
-  cp /hermes-skills/paperclip-bridge/* "${HERMES_HOME}/skills/productivity/paperclip-bridge/" 2>/dev/null
-  chmod +x "${HERMES_HOME}/skills/productivity/paperclip-bridge/pcp.sh" 2>/dev/null
-  echo "[hermes-gateway] paperclip-bridge skill installed."
-fi
-if [ -d /hermes-skills/doctor-prospector ]; then
-  cp /hermes-skills/doctor-prospector/* "${HERMES_HOME}/skills/productivity/doctor-prospector/"
-  echo "[hermes-gateway] doctor-prospector skill installed."
-fi
-if [ -d /hermes-skills/grant-tracker ]; then
-  cp /hermes-skills/grant-tracker/* "${HERMES_HOME}/skills/productivity/grant-tracker/"
-  echo "[hermes-gateway] grant-tracker skill installed."
-fi
+# Copy all skills from Docker image
+for skill_dir in /hermes-skills/*/; do
+  skill_name=$(basename "$skill_dir")
+  if [ -d "$skill_dir" ]; then
+    cp "$skill_dir"* "${HERMES_HOME}/skills/productivity/${skill_name}/" 2>/dev/null
+    echo "[hermes-gateway] ${skill_name} skill installed."
+  fi
+done
+chmod +x "${HERMES_HOME}/skills/productivity/paperclip-bridge/pcp.sh" 2>/dev/null
 
 # Detect LLM provider: Gemini (default) or Kimi (fallback)
 if [ -n "${GOOGLE_API_KEY}" ]; then
@@ -96,11 +94,69 @@ group_sessions_per_user: true
 HERMESCONFIG
 
 # ── Cron jobs (persistent in volume, seed only if empty) ──────────────────────
+# Detect which bot this is: claudinho (família) vs claudiohermes (trabalho)
 CRON_DIR="${HERMES_HOME}/cron"
 mkdir -p "${CRON_DIR}/output"
+SERVICE_NAME="${RAILWAY_SERVICE_NAME:-unknown}"
+
 if [ ! -f "${CRON_DIR}/jobs.json" ]; then
-  echo "[hermes-gateway] Seeding cron jobs..."
-  cat > "${CRON_DIR}/jobs.json" << 'CRONJOBS'
+  echo "[hermes-gateway] Seeding cron jobs for ${SERVICE_NAME}..."
+
+  if echo "$SERVICE_NAME" | grep -qi "claudinho"; then
+    # ── CLAUDINHO (Família JV) ──
+    cat > "${CRON_DIR}/jobs.json" << 'CRONJOBS'
+[
+  {
+    "id": "fam-versiculo",
+    "name": "Versiculo diario",
+    "schedule": "30 9 * * *",
+    "prompt": "Bom dia, Karine! Compartilhe um versículo bíblico com uma reflexão curta e carinhosa para começar o dia. Varie os temas: gratidão, família, coragem, provisão, casamento. Tom evangélico batista. Termine com uma oração curta.",
+    "skills": ["casal-fe"],
+    "enabled": true,
+    "created_at": "2026-04-14T18:00:00Z"
+  },
+  {
+    "id": "fam-bomdia",
+    "name": "Bom dia familia",
+    "schedule": "0 10 * * *",
+    "prompt": "Briefing matinal da família Dias: 1) Medicamentos/suplementos do dia (Rebecca: vitamina D, Benjamin: verificar se precisa algo). 2) Dieta Rebecca: o que pode comer hoje (sugerir café da manhã e almoço seguros). 3) Amanda: lembrar de atividade física. 4) ALERTA: Benjamin tem G6PD — dipirona PROIBIDA. Perguntar se alguém tem consulta ou compromisso.",
+    "skills": ["saude-criancas"],
+    "enabled": true,
+    "created_at": "2026-04-14T18:00:00Z"
+  },
+  {
+    "id": "fam-checkin",
+    "name": "Check-in saude noturno",
+    "schedule": "0 22 * * *",
+    "prompt": "Boa noite família! Check-in: Como foi o dia? Amanda se exercitou? Rebecca teve alguma dor de estômago? O que ela comeu? Benjamin está bem? Algum medicamento dado hoje? Lembrar que Alivium é seguro, Novalgina NUNCA. Terminar com versículo de descanso.",
+    "skills": ["saude-criancas", "casal-fe"],
+    "enabled": true,
+    "created_at": "2026-04-14T18:00:00Z"
+  },
+  {
+    "id": "fam-datenight",
+    "name": "Date night reminder",
+    "schedule": "0 21 * * 4",
+    "prompt": "Quinta-feira! Hora de planejar o date night. Sugira um restaurante da lista que ainda não visitaram e uma ideia romântica. Pergunte se querem reservar. Use a skill casal-fe para escolher.",
+    "skills": ["casal-fe"],
+    "enabled": true,
+    "created_at": "2026-04-14T18:00:00Z"
+  },
+  {
+    "id": "fam-leads",
+    "name": "Resumo leads semanal",
+    "schedule": "0 11 * * 5",
+    "prompt": "Sexta! Resumo semanal de vendas para Karine (IA para Médicos): Quantos leads novos esta semana? Quem foi contatado? Follow-ups pendentes? Sugerir 3 ações para a próxima semana. Lembrar dos produtos: Site Premium R$3.500-8K, AEO Doctors R$3.490+/mês, Apps R$8K-58K.",
+    "skills": ["karine-vendas"],
+    "enabled": true,
+    "created_at": "2026-04-14T18:00:00Z"
+  }
+]
+CRONJOBS
+
+  else
+    # ── CLAUDIOHERMES (JV AI Labs / Trabalho) ──
+    cat > "${CRON_DIR}/jobs.json" << 'CRONJOBS'
 [
   {
     "id": "cron-strategy",
@@ -139,15 +195,6 @@ if [ ! -f "${CRON_DIR}/jobs.json" ]; then
     "created_at": "2026-04-14T14:00:00Z"
   },
   {
-    "id": "cron-saude",
-    "name": "Saude familiar",
-    "schedule": "30 10 * * *",
-    "prompt": "Check-in saúde familiar: lembrar JV de exercícios (4x/semana calistenia+caminhada), sono 7-8h, peso 75-80kg. ALERTA CRÍTICO: Benjamin tem G6PD — dipirona é PROIBIDA. Perguntar como estão Amanda, Rebecca e Benjamin. Lembrar de date night semanal com Karine.",
-    "skills": ["jv-superpersona"],
-    "enabled": true,
-    "created_at": "2026-04-14T14:00:00Z"
-  },
-  {
     "id": "cron-prospeccao",
     "name": "Doctor prospection",
     "schedule": "0 */3 * * *",
@@ -167,6 +214,8 @@ if [ ! -f "${CRON_DIR}/jobs.json" ]; then
   }
 ]
 CRONJOBS
+  fi
+
   echo "[hermes-gateway] $(cat ${CRON_DIR}/jobs.json | python3 -c 'import sys,json; print(f"{len(json.load(sys.stdin))} cron jobs seeded")')"
 else
   echo "[hermes-gateway] Cron jobs already exist ($(cat ${CRON_DIR}/jobs.json | python3 -c 'import sys,json; print(f"{len(json.load(sys.stdin))} jobs")' 2>/dev/null || echo 'file exists'))"
