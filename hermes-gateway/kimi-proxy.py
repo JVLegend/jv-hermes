@@ -25,13 +25,25 @@ class KimiProxyHandler(BaseHTTPRequestHandler):
         length = int(self.headers.get("Content-Length", 0))
         body   = self.rfile.read(length)
 
-        # Força temperature=0.6 no body JSON (adiciona se ausente)
+        # Força temperature=0.6 no body JSON + reescreve nome do modelo
+        # para o ID real que a API Kimi reconhece. Também remove sampling
+        # params potencialmente conflitantes (top_p etc.) que o modelo
+        # kimi-k2.6-code-preview pode rejeitar junto de temperature!=0.6.
         try:
             data = json.loads(body)
             old_temp = data.get("temperature", "<missing>")
+            old_model = data.get("model")
+            # Reescreve alias hermes-agent → model ID real do Kimi
+            if old_model in ("kimi-for-coding", "kimi-k2-5", "kimi-k2.5", "kimi-k2.6"):
+                data["model"] = "kimi-k2.6-code-preview"
             data["temperature"] = FORCED_TEMP
+            # Remove sampling params que podem conflitar com temperature fixa
+            for k in ("top_p", "top_k", "presence_penalty", "frequency_penalty", "best_of", "n"):
+                data.pop(k, None)
+            sampling = {k: data.get(k) for k in ("temperature","top_p","top_k","n","best_of","presence_penalty","frequency_penalty") if k in data}
             body = json.dumps(data).encode()
-            print(f"[kimi-proxy] {self.path} temp: {old_temp} → {FORCED_TEMP}", flush=True)
+            print(f"[kimi-proxy] {self.path} model: {old_model!r} → {data.get('model')!r} temp: {old_temp} → {FORCED_TEMP} sampling={sampling}", flush=True)
+            print(f"[kimi-proxy] body head: {body[:300]!r}", flush=True)
         except Exception as e:
             print(f"[kimi-proxy] JSON parse failed: {e}", flush=True)
 
