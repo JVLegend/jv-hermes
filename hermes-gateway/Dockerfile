@@ -11,6 +11,7 @@ RUN apt-get update \
 RUN pip install --no-cache-dir "git+https://github.com/NousResearch/hermes-agent.git@main" python-telegram-bot gcalcli
 
 COPY entrypoint.sh /entrypoint.sh
+COPY kimi-proxy.py /kimi-proxy.py
 COPY skills/ /hermes-skills/
 RUN chmod +x /entrypoint.sh
 
