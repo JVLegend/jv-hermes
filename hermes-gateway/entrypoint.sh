@@ -24,7 +24,7 @@ for skill_dir in /hermes-skills/*/; do
 done
 chmod +x "${HERMES_HOME}/skills/productivity/paperclip-bridge/pcp.sh" 2>/dev/null
 
-# Detect LLM provider: DGX (primary) → Gemini (secondary) → Kimi (fallback)
+# Detect LLM provider: DGX (primary) → Kimi (secondary) → Gemini (fallback)
 if [ -n "${DGX_SECRET_KEY}" ] && [ -n "${DGX_BASE_URL}" ]; then
   export LLM_MODEL="${HERMES_MODEL:-gemma4:27b}"
   export LLM_PROVIDER="custom_openai"
@@ -33,9 +33,17 @@ if [ -n "${DGX_SECRET_KEY}" ] && [ -n "${DGX_BASE_URL}" ]; then
   export HERMES_MODEL="${LLM_MODEL}"
   export HERMES_PROVIDER="custom_openai"
   export HERMES_INFERENCE_PROVIDER="dgx"
-  # litellm picks this up for custom_openai
   export OPENAI_API_KEY="${DGX_SECRET_KEY}"
   echo "[hermes-gateway] LLM: DGX/Gemma4 (${LLM_MODEL}) @ ${DGX_BASE_URL}"
+elif [ -n "${KIMI_API_KEY}" ]; then
+  export LLM_MODEL="${HERMES_MODEL:-kimi-k2-5}"
+  export LLM_PROVIDER="kimi-coding"
+  export LLM_BASE_URL="${KIMI_BASE_URL:-https://api.kimi.com/coding/v1}"
+  export LLM_API_KEY="${KIMI_API_KEY}"
+  export HERMES_MODEL="${LLM_MODEL}"
+  export HERMES_PROVIDER="kimi-coding"
+  export HERMES_INFERENCE_PROVIDER="kimi"
+  echo "[hermes-gateway] LLM: Kimi (${LLM_MODEL})"
 elif [ -n "${GOOGLE_API_KEY}" ]; then
   export LLM_MODEL="${HERMES_MODEL:-gemini-2.0-flash}"
   export LLM_PROVIDER="google"
@@ -44,18 +52,9 @@ elif [ -n "${GOOGLE_API_KEY}" ]; then
   export HERMES_MODEL="${LLM_MODEL}"
   export HERMES_PROVIDER="google"
   export HERMES_INFERENCE_PROVIDER="gemini"
-  echo "[hermes-gateway] LLM: Gemini (${LLM_MODEL})"
-elif [ -n "${KIMI_API_KEY}" ]; then
-  export LLM_MODEL="${HERMES_MODEL:-kimi-k2.5}"
-  export LLM_PROVIDER="kimi-coding"
-  export LLM_BASE_URL="${KIMI_BASE_URL:-https://api.kimi.com/coding/v1}"
-  export LLM_API_KEY="${KIMI_API_KEY}"
-  export HERMES_MODEL="${LLM_MODEL}"
-  export HERMES_PROVIDER="kimi-coding"
-  export HERMES_INFERENCE_PROVIDER="kimi"
-  echo "[hermes-gateway] LLM: Kimi (${LLM_MODEL})"
+  echo "[hermes-gateway] LLM: Gemini fallback (${LLM_MODEL})"
 else
-  echo "[hermes-gateway] ERRO: nenhuma API key encontrada (DGX_SECRET_KEY, GOOGLE_API_KEY ou KIMI_API_KEY)"
+  echo "[hermes-gateway] ERRO: nenhuma API key encontrada (KIMI_API_KEY, GOOGLE_API_KEY ou DGX_SECRET_KEY)"
   exit 1
 fi
 
