@@ -14,6 +14,7 @@ COPY entrypoint.sh /entrypoint.sh
 COPY kimi-proxy.py /kimi-proxy.py
 COPY skills/ /hermes-skills/
 COPY scripts/vault_sync_summarizer.py /vault_sync_summarizer.py
+COPY scripts/vault_cache_sync.py /vault_cache_sync.py
 RUN chmod +x /entrypoint.sh
 
 ENV HOME=/root

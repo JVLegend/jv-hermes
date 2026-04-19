@@ -333,5 +333,16 @@ if [ -f "/vault_sync_summarizer.py" ]; then
   echo "[hermes-gateway] vault_sync_summarizer started (bot=${HERMES_BOT_NAME}, pid=$!)"
 fi
 
+# ── Vault Cache Sync (Flow 1: GitHub -> Hermes, polls every 5min) ─────────────
+# Puxa kanban.json + MOCs + project READMEs do repo SuperJV para
+# ${HERMES_HOME}/vault_cache/ usando GITHUB_TOKEN. No-op silencioso se o
+# token não estiver setado.
+if [ -f "/vault_cache_sync.py" ]; then
+  mkdir -p "${HERMES_HOME}/vault_cache"
+  python3 -c "import requests" 2>/dev/null || pip install --no-cache-dir requests >/dev/null 2>&1
+  nohup python3 /vault_cache_sync.py > "${HERMES_HOME}/vault_cache/daemon.log" 2>&1 &
+  echo "[hermes-gateway] vault_cache_sync started (repo=${GITHUB_REPO:-JVLegend/SuperJV}, pid=$!)"
+fi
+
 echo "[hermes-gateway] Ready. SOUL=$(test -f ${HERMES_HOME}/SOUL.md && echo 'ok' || echo 'missing') Skills=$(ls ${HERMES_HOME}/skills/productivity/ 2>/dev/null | tr '\n' ',')"
 exec hermes gateway run --replace
