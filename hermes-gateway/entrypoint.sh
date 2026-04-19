@@ -318,5 +318,20 @@ if [ -n "${HERMES_SUPERPERSONA_CONTENT}" ]; then
   echo "${HERMES_SUPERPERSONA_CONTENT}" | base64 -d > "${HERMES_HOME}/skills/productivity/jv-superpersona/SKILL.md"
 fi
 
+# ── Vault Sync Summarizer (background daemon, every 3h) ───────────────────────
+# Derives a bot tag for the summary prompt flavor from SERVICE_NAME.
+# claudinho -> familia/Karine prompt; anything else -> trabalho/JV prompt.
+if [ -f "/vault_sync_summarizer.py" ]; then
+  case "${SERVICE_NAME}" in
+    *claudinho*) export HERMES_BOT_NAME="claudinho" ;;
+    *)           export HERMES_BOT_NAME="claudiohermes" ;;
+  esac
+  mkdir -p "${HERMES_HOME}/vault_sync"
+  # requests is already pulled in by python-telegram-bot; ensure it is present.
+  python3 -c "import requests" 2>/dev/null || pip install --no-cache-dir requests >/dev/null 2>&1
+  nohup python3 /vault_sync_summarizer.py > "${HERMES_HOME}/vault_sync/daemon.log" 2>&1 &
+  echo "[hermes-gateway] vault_sync_summarizer started (bot=${HERMES_BOT_NAME}, pid=$!)"
+fi
+
 echo "[hermes-gateway] Ready. SOUL=$(test -f ${HERMES_HOME}/SOUL.md && echo 'ok' || echo 'missing') Skills=$(ls ${HERMES_HOME}/skills/productivity/ 2>/dev/null | tr '\n' ',')"
 exec hermes gateway run --replace

@@ -13,6 +13,7 @@ RUN pip install --no-cache-dir "git+https://github.com/NousResearch/hermes-agent
 COPY entrypoint.sh /entrypoint.sh
 COPY kimi-proxy.py /kimi-proxy.py
 COPY skills/ /hermes-skills/
+COPY scripts/vault_sync_summarizer.py /vault_sync_summarizer.py
 RUN chmod +x /entrypoint.sh
 
 ENV HOME=/root
